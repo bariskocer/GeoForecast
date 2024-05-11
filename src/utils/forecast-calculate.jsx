@@ -8,7 +8,7 @@ const getDayOfWeek = (dateString) => {
 
 export const groupDataByDate = (data) => {
     const groupedData = data.reduce((acc, item) => {
-        const dateStr = item.dt_dxt.split(" ")[0];
+        const dateStr = item.dt_txt.split(" ")[0];
         const day = getDayOfWeek(dateStr);
         if (!acc[dateStr]) {
             acc[dateStr] = {
@@ -16,7 +16,11 @@ export const groupDataByDate = (data) => {
                 min: item.main.temp_min,
                 max: item.main.temp_max,
                 weather: item.weather[0].description,
-                icon: item.weather[0].icon
+                icon: item.weather[0].icon,
+                wind: item.wind.speed,
+                pressure: item.main.pressure,
+                humidity: item.main.humidity,
+                sea_level: item.main.sea_level
             };
         } else {
             if (acc[dateStr].min > item.main.temp_min) {
@@ -26,10 +30,15 @@ export const groupDataByDate = (data) => {
                 acc[dateStr].max = item.main.temp_max;
                 acc[dateStr].weather = item.weather[0].description;
                 acc[dateStr].icon = item.weather[0].icon;
+                acc[dateStr].wind = item.wind.speed;
+                acc[dateStr].pressure = item.main.pressure;
+                acc[dateStr].humidity = item.main.humidity;
+                acc[dateStr].sea_level = item.main.sea_level;
             }
         }
         return acc;
     }, {});
-    console.log("function");
-    return groupedData;
+    
+   const groupedDataArray = Object.values(groupedData);
+   return groupedDataArray;
 }

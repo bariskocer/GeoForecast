@@ -25,7 +25,8 @@ export const WeatherProvider = ({ children }) => {
       setLoading(false);
     }
   };
-  console.log(forecastWeather);
+  console.log("Forecast",forecastWeather);
+  console.log("Current",currentWeather);
   
  return (
     <WeatherContext.Provider value={{currentWeather,forecastWeather,loading,handleSearchChange}}>
